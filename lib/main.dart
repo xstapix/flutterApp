@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'responsive/responsive_layout.dart';
+import 'package:flutter_application_1/router.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'responsive/desktop_scaffold.dart';
-import 'responsive/mobile_scaffold.dart';
-import 'responsive/tablet_scaffold.dart';
+import './redux/app_state.dart';
+import './redux//reducers.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: ResponsiveLayout(
-        mobileScaffold: MobileScaffold(),
-        tabletScaffold: TabletScaffold(),
-        desktopScaffold: DesktopScaffold(),
-      ),
+      routerConfig: router,
     );
   }
 }

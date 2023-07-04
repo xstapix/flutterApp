@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'dart:async';
 import 'dart:convert';
@@ -104,23 +106,86 @@ class _MobileScaffoldState extends State<MobileScaffold> {
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 0, 0),
-      appBar: myAppBar,
-      drawer: myDrawer,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 8, right: 8),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1,
-            mainAxisSpacing: 8,
-            childAspectRatio: (1 / .6)
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+            child: Row(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 51, 51, 51),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)
+                    )
+                  ),
+                  width: 50,
+                  height: 55,
+                  child: Center(
+                    child: SizedBox(
+                      width: 16.0,
+                      child: SvgPicture.string('''<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.25 11.25L14.25 14.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.5 12.25C10.1234 12.25 12.25 10.1234 12.25 7.5C12.25 4.87665 10.1234 2.75 7.5 2.75C4.87665 2.75 2.75 4.87665 2.75 7.5C2.75 10.1234 4.87665 12.25 7.5 12.25Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>'''
+                      ),
+                    ) 
+                  ),
+                ),
+                const Expanded(
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10)
+                        )
+                      ),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 51, 51, 51),
+                      
+                    ),
+                  )
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 8),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 51, 51, 51),
+                    borderRadius: BorderRadius.all(Radius.circular(10))
+                  ),
+                  width: 50,
+                  height: 55,
+                  child: Center(
+                    child: SizedBox(
+                      width: 16.0,
+                      child: SvgPicture.string('''<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.00008 3.33326C5.82327 3.33326 5.6537 3.4035 5.52868 3.52852C5.40365 3.65354 5.33341 3.82311 5.33341 3.99992C5.33341 4.17674 5.40365 4.3463 5.52868 4.47133C5.6537 4.59635 5.82327 4.66659 6.00008 4.66659C6.17689 4.66659 6.34646 4.59635 6.47149 4.47133C6.59651 4.3463 6.66675 4.17674 6.66675 3.99992C6.66675 3.82311 6.59651 3.65354 6.47149 3.52852C6.34646 3.4035 6.17689 3.33326 6.00008 3.33326ZM4.11341 3.33326C4.25115 2.9429 4.50657 2.60488 4.84448 2.36578C5.18239 2.12669 5.58614 1.99829 6.00008 1.99829C6.41402 1.99829 6.81777 2.12669 7.15568 2.36578C7.49359 2.60488 7.74901 2.9429 7.88675 3.33326H12.6667C12.8436 3.33326 13.0131 3.4035 13.1382 3.52852C13.2632 3.65354 13.3334 3.82311 13.3334 3.99992C13.3334 4.17674 13.2632 4.3463 13.1382 4.47133C13.0131 4.59635 12.8436 4.66659 12.6667 4.66659H7.88675C7.74901 5.05695 7.49359 5.39497 7.15568 5.63407C6.81777 5.87316 6.41402 6.00156 6.00008 6.00156C5.58614 6.00156 5.18239 5.87316 4.84448 5.63407C4.50657 5.39497 4.25115 5.05695 4.11341 4.66659H3.33341C3.1566 4.66659 2.98703 4.59635 2.86201 4.47133C2.73699 4.3463 2.66675 4.17674 2.66675 3.99992C2.66675 3.82311 2.73699 3.65354 2.86201 3.52852C2.98703 3.4035 3.1566 3.33326 3.33341 3.33326H4.11341ZM10.0001 7.33326C9.82327 7.33326 9.6537 7.4035 9.52868 7.52852C9.40365 7.65354 9.33342 7.82311 9.33342 7.99993C9.33342 8.17674 9.40365 8.3463 9.52868 8.47133C9.6537 8.59635 9.82327 8.66659 10.0001 8.66659C10.1769 8.66659 10.3465 8.59635 10.4715 8.47133C10.5965 8.3463 10.6667 8.17674 10.6667 7.99993C10.6667 7.82311 10.5965 7.65354 10.4715 7.52852C10.3465 7.4035 10.1769 7.33326 10.0001 7.33326ZM8.11341 7.33326C8.25115 6.9429 8.50657 6.60488 8.84448 6.36578C9.18239 6.12669 9.58614 5.99829 10.0001 5.99829C10.414 5.99829 10.8178 6.12669 11.1557 6.36578C11.4936 6.60488 11.749 6.9429 11.8867 7.33326H12.6667C12.8436 7.33326 13.0131 7.4035 13.1382 7.52852C13.2632 7.65354 13.3334 7.82311 13.3334 7.99993C13.3334 8.17674 13.2632 8.3463 13.1382 8.47133C13.0131 8.59635 12.8436 8.66659 12.6667 8.66659H11.8867C11.749 9.05695 11.4936 9.39497 11.1557 9.63407C10.8178 9.87316 10.414 10.0016 10.0001 10.0016C9.58614 10.0016 9.18239 9.87316 8.84448 9.63407C8.50657 9.39497 8.25115 9.05695 8.11341 8.66659H3.33341C3.1566 8.66659 2.98703 8.59635 2.86201 8.47133C2.73699 8.3463 2.66675 8.17674 2.66675 7.99993C2.66675 7.82311 2.73699 7.65354 2.86201 7.52852C2.98703 7.4035 3.1566 7.33326 3.33341 7.33326H8.11341ZM6.00008 11.3333C5.82327 11.3333 5.6537 11.4035 5.52868 11.5285C5.40365 11.6535 5.33341 11.8231 5.33341 11.9999C5.33341 12.1767 5.40365 12.3463 5.52868 12.4713C5.6537 12.5964 5.82327 12.6666 6.00008 12.6666C6.17689 12.6666 6.34646 12.5964 6.47149 12.4713C6.59651 12.3463 6.66675 12.1767 6.66675 11.9999C6.66675 11.8231 6.59651 11.6535 6.47149 11.5285C6.34646 11.4035 6.17689 11.3333 6.00008 11.3333ZM4.11341 11.3333C4.25115 10.9429 4.50657 10.6049 4.84448 10.3658C5.18239 10.1267 5.58614 9.99829 6.00008 9.99829C6.41402 9.99829 6.81777 10.1267 7.15568 10.3658C7.49359 10.6049 7.74901 10.9429 7.88675 11.3333H12.6667C12.8436 11.3333 13.0131 11.4035 13.1382 11.5285C13.2632 11.6535 13.3334 11.8231 13.3334 11.9999C13.3334 12.1767 13.2632 12.3463 13.1382 12.4713C13.0131 12.5964 12.8436 12.6666 12.6667 12.6666H7.88675C7.74901 13.0569 7.49359 13.395 7.15568 13.6341C6.81777 13.8732 6.41402 14.0016 6.00008 14.0016C5.58614 14.0016 5.18239 13.8732 4.84448 13.6341C4.50657 13.395 4.25115 13.0569 4.11341 12.6666H3.33341C3.1566 12.6666 2.98703 12.5964 2.86201 12.4713C2.73699 12.3463 2.66675 12.1767 2.66675 11.9999C2.66675 11.8231 2.73699 11.6535 2.86201 11.5285C2.98703 11.4035 3.1566 11.3333 3.33341 11.3333H4.11341Z" fill="white"></path>
+                            </svg>'''
+                      ),
+                    ) 
+                  ),
+                )
+              ],
+            ) 
           ),
-          itemCount: materialList.length,
-          itemBuilder: (BuildContext ctx, index) {
-            return MaterialBox(
-              objMaterial: materialList[index]
-            );
-          }
-        ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 8,
+                  childAspectRatio: (1 / .6)
+                ),
+                itemCount: materialList.length,
+                itemBuilder: (BuildContext ctx, index) {
+                  return MaterialBox(
+                    objMaterial: materialList[index]
+                  );
+                }
+              ),
+            ),
+          )
+        ],
       )
     );
   }
