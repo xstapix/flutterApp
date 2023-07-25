@@ -1,12 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 import '../components/myAppBar.dart';
 import '../components/myDrawer.dart';
@@ -23,100 +17,43 @@ class MobileScaffold extends StatefulWidget {
 }
 
 class _MobileScaffoldState extends State<MobileScaffold> {
-  final List<Object> materialList = <Object>[
-    {
-      'date': '28.09.2022',
-      'time': 90,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '18.09.2022',
-      'time': 70,
-      'title': 'Дайджест материалов за июнь 2023',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '14.09.2022',
-      'time': 40,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '01.09.2022',
-      'time': 10,
-      'title': 'Создаем абстрактную 3D фигуру в Vectary',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '28.09.2022',
-      'time': 90,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '28.09.2022',
-      'time': 90,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '28.09.2022',
-      'time': 90,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '18.09.2022',
-      'time': 70,
-      'title': 'Дайджест материалов за июнь 2023',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '14.09.2022',
-      'time': 40,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '01.09.2022',
-      'time': 10,
-      'title': 'Создаем абстрактную 3D фигуру в Vectary',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '28.09.2022',
-      'time': 90,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-    {
-      'date': '28.09.2022',
-      'time': 11,
-      'title': 'Практика по брутализму вместе с Сергеем Телидченко',
-      'desc': 'На практике погружаемся в брутализм вместе с нашим приглашенным экспертом!'
-    },
-  ];
-  // final List<String> tags = <String>["Дашборд", "Сайт-портфолио", "Календарь", "Кейсы", "Figma", 'Photoshop', 'Тренды', 'UX', 'Продвижение в соцсетях', 'Анимация', '3D / VR / AR', 'Tilda', 'Теория дизайна'];
+  final List<String> tags = <String>["Дашборд", "Сайт-портфолио", "Календарь", "Кейсы", "Figma", 'Photoshop', 'Тренды', 'UX', 'Продвижение в соцсетях', 'Анимация', '3D / VR / AR', 'Tilda', 'Теория дизайна'];
 
-  void getData() async {
-    var data = await fetchData();
+  var showFilter;
+  // var tags;
+  var haveTags;
+  var materialList;
+  var haveMaterials;
 
-    print(data);
+  void setTags() async {
+    var data = await getTags();
+
+    // print(data);
 
     setState(() {
-      tags = data;
+      // tags = data;
+      haveTags = true;
     });
   }
 
-  var showFilter;
-  var tags;
+  void setMaterials() async {
+    var data = await getMaterials();
+
+    setState(() {
+      materialList = data;
+      haveMaterials = true;
+    });
+  }
+
 
   @override
   void initState() {
     showFilter = false;
-    tags = null;
-    getData();
+    // tags = null;
+    haveTags = false;
+    haveMaterials = false;
+    setTags();
+    setMaterials();
 
     super.initState();
   }
@@ -181,7 +118,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
               ],
             ) 
           ),
-          if(tags)
+          if(false)
             Wrap(
               spacing: 5,
               runSpacing: 8,
@@ -199,24 +136,25 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 );
               })
             ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: (1 / .6)
+          if(haveMaterials)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: (1 / .6)
+                  ),
+                  itemCount: materialList['materials'].length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return MaterialBox(
+                      objMaterial: materialList['materials'][index]
+                    );
+                  }
                 ),
-                itemCount: materialList.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return MaterialBox(
-                    objMaterial: materialList[index]
-                  );
-                }
               ),
-            ),
-          )
+            )
         ],
       )
     );

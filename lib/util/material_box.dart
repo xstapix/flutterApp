@@ -29,7 +29,13 @@ class MaterialBox extends StatelessWidget {
               margin: EdgeInsetsDirectional.only(bottom: 8),
               child: Text(objMaterial['title'], style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),),
             ),
-            Text(objMaterial['desc'], style: TextStyle(color: Colors.white, fontSize: 14,),)
+            Container(
+              height: 36,
+              child: Text(
+                objMaterial['preview_text'], 
+                style: TextStyle(color: Colors.white, fontSize: 14,),
+              )
+            )
           ],
         )
       )
