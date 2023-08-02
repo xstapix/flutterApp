@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../counter_bloc.dart';
 import '../responsive/desktop_scaffold.dart';
 import '../responsive/mobile_scaffold.dart';
 import '../responsive/responsive_layout.dart';
@@ -37,6 +39,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -77,7 +80,29 @@ class _HomePageState extends State<HomePage> {
         )
         ],
       ),
-      body: const ResponsiveLayout(
+      body: 
+      // BlocBuilder<CounterBloc, int> (
+      //   builder: (context, state) { 
+      //     return Column(
+      //       children: [
+      //         Text(state.toString()),
+      //         InkWell(
+      //           onTap: () {
+      //             bloc.add(CounterIncEvent());
+      //           },
+      //           child: Text('+1'),
+      //         ),
+      //         InkWell(
+      //           onTap: () {
+      //             bloc.add(CounterDecEvent());
+      //           },
+      //           child: Text('-1'),
+      //         )
+      //       ]
+      //     );
+      //   }
+      // ),
+      const ResponsiveLayout(
         mobileScaffold: MobileScaffold(),
         tabletScaffold: TabletScaffold(),
         desktopScaffold: DesktopScaffold(),
