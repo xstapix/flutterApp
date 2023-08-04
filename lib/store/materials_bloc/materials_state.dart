@@ -4,6 +4,7 @@ abstract class MaterialsState {}
 
 class MaterialsInitial extends MaterialsState {}
 
+class MaterialsLoadingState extends MaterialsState {}
 class MaterialsLoadedState extends MaterialsState {
  final List materials;
 

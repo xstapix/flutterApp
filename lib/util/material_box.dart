@@ -13,6 +13,7 @@ class MaterialBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 200,
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 51, 51, 51),
         borderRadius: BorderRadius.circular(8)),
@@ -26,6 +27,7 @@ class MaterialBox extends StatelessWidget {
             ),
             const Spacer(),
             Container(
+              height: 50,
               margin: EdgeInsetsDirectional.only(bottom: 8),
               child: Text(objMaterial['title'], style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),),
             ),

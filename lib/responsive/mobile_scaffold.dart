@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,8 +7,13 @@ import '../components/myAppBar.dart';
 import '../components/myDrawer.dart';
 import '../components/filter.dart';
 
+import '../store/favorite_bloc.dart/favorite_bloc.dart';
+import '../store/favorite_bloc.dart/favorite_event.dart';
+import '../store/materials_bloc/materials_bloc.dart';
+import '../store/materials_bloc/materials_event.dart';
+import '../store/materials_bloc/materials_state.dart';
 import '../util/material_box.dart';
-import '../shared//api.dart';
+import '../shared/api.dart';
 
 class MobileScaffold extends StatefulWidget {
   const MobileScaffold({super.key});
@@ -36,14 +42,14 @@ class _MobileScaffoldState extends State<MobileScaffold> {
     });
   }
 
-  void setMaterials() async {
-    var data = await getMaterials();
+  // void setMaterials() async {
+  //   var data = await getMaterials();
 
-    setState(() {
-      materialList = data;
-      haveMaterials = true;
-    });
-  }
+  //   setState(() {
+  //     materialList = data;
+  //     haveMaterials = true;
+  //   });
+  // }
 
 
   @override
@@ -53,14 +59,19 @@ class _MobileScaffoldState extends State<MobileScaffold> {
     haveTags = false;
     haveMaterials = false;
     setTags();
-    setMaterials();
+    
+    // MaterialsBloc().add(MaterialsInitEvent());
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final x = MaterialsBloc();
+    x.add(MaterialsInitEvent());
+
+    return 
+    Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       body: Column(
         children: [
@@ -136,25 +147,25 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 );
               })
             ),
-          if(haveMaterials)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    mainAxisSpacing: 8,
-                    childAspectRatio: (1 / .6)
-                  ),
-                  itemCount: materialList['materials'].length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return MaterialBox(
-                      objMaterial: materialList['materials'][index]
-                    );
-                  }
-                ),
-              ),
-            )
+          
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+              child: BlocBuilder<MaterialsBloc, MaterialsState>(
+                bloc: x,
+                builder: (context, state) {
+                  return ListView(
+                    children: [
+                      if(state is MaterialsLoadingState)
+                        CircularProgressIndicator(),
+                      if(state is MaterialsLoadedState)
+                        ...state.materials.map((e) => MaterialBox(objMaterial: e,)),
+                    ],
+                  );
+                }
+              )
+            ),
+          )
         ],
       )
     );

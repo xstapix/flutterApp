@@ -35,5 +35,33 @@ Future getMaterials() async {
   );
   final data = json.decode(response.body);
 
-  return data;
+  return data['materials'];
+}
+
+Future getFavorite() async {
+  final response = await http.post(
+    _url,
+    body: jsonEncode(
+      {
+        'auth_user_id': 1735,
+        'method': "getListNotedMaterials"
+      }
+    )
+  );
+  final data = json.decode(response.body);
+
+  return data['viewed'];
+}
+
+Future changeCompleteMaterial(name) async {
+  final response = await http.post(
+    _url,
+    body: jsonEncode(
+      {
+        'auth_user_id': 1735,
+        'material_name': name,
+        'method': "changeCompleteMaterial"
+      }
+    )
+  );
 }
