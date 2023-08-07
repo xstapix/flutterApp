@@ -22,12 +22,18 @@ class MaterialInfo extends StatefulWidget {
 class _MaterialInfoState extends State<MaterialInfo> {
   var _like;
   var _read;
+  final favorite = FavoriteBloc();
+
+  void setFavorite() async {
+    await getFavorite();
+    favorite.add(FavoriteInitEvent(['99071', '99153', '99598']));
+  }
 
   @override
   void initState() {
     _like = false;
     _read = false;
-
+    setFavorite();
     super.initState();
   }
 
@@ -44,9 +50,6 @@ class _MaterialInfoState extends State<MaterialInfo> {
 
   @override
   Widget build(BuildContext context) {
-    
-    final favorite = FavoriteBloc();
-    favorite.add(FavoriteInitEvent());
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

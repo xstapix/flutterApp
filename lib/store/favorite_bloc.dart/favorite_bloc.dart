@@ -7,15 +7,12 @@ import '../../shared/api.dart';
 class FavoriteBloc extends Bloc<FavoriteEvents, FavoriteState> {
   FavoriteBloc() : super(FavoriteInitial()) {
     on<FavoriteInitEvent>(_onInit);
-    // add(event)
   }
 
   _onInit(FavoriteInitEvent event, Emitter<FavoriteState> emit) async {
     emit(FavoriteLoadingState());
-    final List favorite = ['99071', '99153', '99598'];
-  
 
-    emit(FavoriteLoadedState(favorite));
+    emit(FavoriteLoadedState(event.list));
   }
 
 }
