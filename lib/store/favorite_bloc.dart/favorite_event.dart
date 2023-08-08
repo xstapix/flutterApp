@@ -3,7 +3,7 @@ abstract class FavoriteEvents {
 }
 
 class FavoriteInitEvent extends FavoriteEvents {
-  var list;
+  Map data;
 
-  FavoriteInitEvent(this.list);
+  FavoriteInitEvent(this.data);
 }

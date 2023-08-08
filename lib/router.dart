@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import './page/home_page.dart';
-import './page/second_page.dart';
+import 'page/login_page.dart';
 
 final GoRouter router = GoRouter(
   routes: <GoRoute>[
@@ -13,9 +13,9 @@ final GoRouter router = GoRouter(
       }
     ),
     GoRoute(
-      path: '/second',
+      path: '/home',
       builder: (BuildContext context, GoRouterState state) {
-        return const SecondPage();
+        return const HomePage();
       }
     )
   ]

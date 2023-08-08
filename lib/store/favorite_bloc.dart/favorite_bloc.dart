@@ -11,8 +11,10 @@ class FavoriteBloc extends Bloc<FavoriteEvents, FavoriteState> {
 
   _onInit(FavoriteInitEvent event, Emitter<FavoriteState> emit) async {
     emit(FavoriteLoadingState());
+    Map favorite = event.data['favorites'];
+    Map viewed = event.data['viewed'];
 
-    emit(FavoriteLoadedState(event.list));
+    emit(FavoriteLoadedState(favorite, viewed));
   }
 
 }

@@ -25,8 +25,8 @@ class MobileScaffold extends StatefulWidget {
 class _MobileScaffoldState extends State<MobileScaffold> {
   final List<String> tags = <String>["Дашборд", "Сайт-портфолио", "Календарь", "Кейсы", "Figma", 'Photoshop', 'Тренды', 'UX', 'Продвижение в соцсетях', 'Анимация', '3D / VR / AR', 'Tilda', 'Теория дизайна'];
 
+  final x = MaterialsBloc();
   var showFilter;
-  // var tags;
   var haveTags;
   var materialList;
   var haveMaterials;
@@ -34,42 +34,25 @@ class _MobileScaffoldState extends State<MobileScaffold> {
   void setTags() async {
     var data = await getTags();
 
-    // print(data);
-
     setState(() {
-      // tags = data;
       haveTags = true;
     });
   }
 
-  // void setMaterials() async {
-  //   var data = await getMaterials();
-
-  //   setState(() {
-  //     materialList = data;
-  //     haveMaterials = true;
-  //   });
-  // }
-
-
   @override
   void initState() {
+    x.add(MaterialsInitEvent());
     showFilter = false;
-    // tags = null;
     haveTags = false;
     haveMaterials = false;
+
     setTags();
-    
-    // MaterialsBloc().add(MaterialsInitEvent());
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final x = MaterialsBloc();
-    x.add(MaterialsInitEvent());
-
     return 
     Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
@@ -147,10 +130,9 @@ class _MobileScaffoldState extends State<MobileScaffold> {
                 );
               })
             ),
-          
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+              padding: const EdgeInsets.only(left: 8, right: 8),
               child: BlocBuilder<MaterialsBloc, MaterialsState>(
                 bloc: x,
                 builder: (context, state) {
@@ -171,3 +153,4 @@ class _MobileScaffoldState extends State<MobileScaffold> {
     );
   }
 }
+

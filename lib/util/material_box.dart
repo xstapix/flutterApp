@@ -13,7 +13,8 @@ class MaterialBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      margin: EdgeInsets.only(bottom: 8),
+      constraints: BoxConstraints(maxHeight: 227),
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 51, 51, 51),
         borderRadius: BorderRadius.circular(8)),

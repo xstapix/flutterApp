@@ -43,14 +43,14 @@ Future getFavorite() async {
     _url,
     body: jsonEncode(
       {
-        'auth_user_id': 1735,
+        'auth_user_id': 1332,
         'method': "getListNotedMaterials"
       }
     )
   );
   final data = json.decode(response.body);
 
-  return data['viewed'];
+  return data;
 }
 
 Future changeCompleteMaterial(name) async {

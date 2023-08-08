@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
       //     );
       //   }
       // ),
-      const ResponsiveLayout(
+      ResponsiveLayout(
         mobileScaffold: MobileScaffold(),
         tabletScaffold: TabletScaffold(),
         desktopScaffold: DesktopScaffold(),
