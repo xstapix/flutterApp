@@ -5,6 +5,22 @@ import 'dart:async';
 
 var _url = Uri.parse('https://kronadev.ru/api_2/');
 
+Future getAuth(email, pass) async {
+  final response = await http.post(
+    _url,
+    body: jsonEncode(<String, String>
+      {
+        "method": "getAuth",
+        "email": email,
+        "password": pass
+      }
+    )
+  );
+  final data = json.decode(response.body);
+
+  return data;
+}
+
 Future getTags() async {
   final response = await http.post(
     _url,
